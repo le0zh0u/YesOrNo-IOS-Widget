@@ -11,24 +11,26 @@ import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
-    var selectTwoLoadTimer : Timer!
-    
+    var selected : Bool! = false
     @IBOutlet weak var twoSelectLabel: UILabel!
 
     @IBAction func clickTwoSelectStartButton(_ sender:
         Any) {
-        resetTwoSelect()
-        DispatchQueue.main.asyncAfter(deadline:
-            DispatchTime.now()
-                + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)){
-                    let randomNum = arc4random_uniform(10)
-                    if(randomNum > 5){
-                        self.twoSelectLabel.textColor = UIColor.green
-                        self.twoSelectLabel.text = "Yes"
-                    }else{
-                        self.twoSelectLabel.textColor = UIColor.red
-                        self.twoSelectLabel.text = "No"
-                    }
+//        if let selected = selected, !selected {
+            resetTwoSelect()
+            DispatchQueue.main.asyncAfter(deadline:
+                DispatchTime.now()
+                    + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)){
+                        let randomNum = arc4random_uniform(10)
+                        if(randomNum > 5){
+                            self.twoSelectLabel.textColor = UIColor.green
+                            self.twoSelectLabel.text = "Yes"
+                        }else{
+                            self.twoSelectLabel.textColor = UIColor.red
+                            self.twoSelectLabel.text = "No"
+                        }
+                        self.selected = true
+//            }
         }
     }
     
@@ -38,6 +40,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
+        selected = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,6 +61,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     func resetTwoSelect(){
         twoSelectLabel.textColor = UIColor.black
         twoSelectLabel.text = "Yes Or No"
+        selected = false;
 
     }
     
