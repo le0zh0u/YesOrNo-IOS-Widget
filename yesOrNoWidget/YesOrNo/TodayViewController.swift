@@ -17,17 +17,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     @IBAction func clickTwoSelectStartButton(_ sender:
         Any) {
-        let randomNum = arc4random_uniform(10)
-        print(randomNum)
-//        Thread.sleep(forTimeInterval: 2)  // 模拟两秒的执行时间
-        if(randomNum > 5){
-            twoSelectLabel.textColor = UIColor.green
-            twoSelectLabel.text = "Yes"
-        }else{
-            twoSelectLabel.textColor = UIColor.red
-            twoSelectLabel.text = "No"
+        resetTwoSelect()
+        DispatchQueue.main.asyncAfter(deadline:
+            DispatchTime.now()
+                + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)){
+                    let randomNum = arc4random_uniform(10)
+                    if(randomNum > 5){
+                        self.twoSelectLabel.textColor = UIColor.green
+                        self.twoSelectLabel.text = "Yes"
+                    }else{
+                        self.twoSelectLabel.textColor = UIColor.red
+                        self.twoSelectLabel.text = "No"
+                    }
         }
-        
     }
     
     @IBAction func clickTwoSelectResetButton(_ sender: Any) {
@@ -55,7 +57,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func resetTwoSelect(){
         twoSelectLabel.textColor = UIColor.black
-        twoSelectLabel.text = "YesOrNo"
+        twoSelectLabel.text = "Yes Or No"
 
     }
     
